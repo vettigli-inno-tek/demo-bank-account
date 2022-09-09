@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+
+	
+
+	<groupId>it.inno-tek.demo.bank-account</groupId>
+	<artifactId>bank-account</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>bank-account</name>
+	<description>Demo Bank Account</description>
+
+	<properties>
+		
+		<java.version>1.8</java.version>
+		
+		<resource.delimiter>@</resource.delimiter>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<spring-boot.version>2.7.3</spring-boot.version>
+		<retrofit.version>2.9.0</retrofit.version>
+		<mapstruct.version>1.4.2.Final</mapstruct.version>
+		<springdoc.version>1.6.4</springdoc.version>
+
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<type>pom</type>
+				<version>${spring-boot.version}</version>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.squareup.retrofit2</groupId>
+				<artifactId>retrofit</artifactId>
+				<version>${retrofit.version}</version>
+			</dependency>  
+			<dependency>  
+				<groupId>com.squareup.retrofit2</groupId>
+				<artifactId>converter-jackson</artifactId>
+				<version>${retrofit.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct</artifactId>
+				<version>${mapstruct.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-ui</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring-boot.version}</version>
+				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>junit</groupId>
+						<artifactId>junit</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>5.8.2</version>
+				<scope>test</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+	<modules>
+		<module>bank-account-domain</module>
+		<module>bank-account-provider-default</module>
+		<module>bank-account-application</module>
+	</modules>
+
+
+</project>
