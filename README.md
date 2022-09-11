@@ -68,6 +68,11 @@ docker build -t demo-bank-account:latest .
 docker run -d -p8080:8080 demo-bank-account:latest
 ```
 
+### SonarQube 
+```shell
+docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
+```
+
 
 ## Postman  ( Testing )
 

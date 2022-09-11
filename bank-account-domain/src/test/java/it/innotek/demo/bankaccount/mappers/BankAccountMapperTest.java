@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import it.innotek.demo.bankaccount.mappers.BankAccountMapper;
 
+
+@SpringBootTest
 @ExtendWith(SpringExtension.class)
 public class BankAccountMapperTest {
 
@@ -19,7 +22,7 @@ public class BankAccountMapperTest {
 
 	@BeforeAll
 	static void initAll() {
-		System.out.println("---Inside initAll---");
+		
 	}
 
 	@BeforeEach
@@ -27,6 +30,13 @@ public class BankAccountMapperTest {
 		assertNotNull(mapper);
 	}
 
+	
+	@Test
+	void instanceTest () {
+		
+		assertNotNull(mapper);
+		
+	}
 	
 	
 }

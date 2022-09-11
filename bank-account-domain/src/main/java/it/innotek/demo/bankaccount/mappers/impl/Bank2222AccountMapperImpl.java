@@ -1,23 +1,7 @@
 package it.innotek.demo.bankaccount.mappers.impl;
 
-import java.util.function.Supplier;
-
-import org.springframework.stereotype.Component;
-
-import it.innotek.demo.bankaccount.mappers.BankAccountMapper;
-import it.innotek.demo.bankaccount.model.balance.Balance;
-import it.innotek.demo.bankaccount.model.balance.ServerResponseBalance;
-import it.innotek.demo.bankaccount.model.banktransfer.BankTransferResult;
-import it.innotek.demo.bankaccount.model.banktransfer.ServerResponseBankTransferResult;
-import it.innotek.demo.bankaccount.model.server.ServerResponse;
-import it.innotek.demo.bankaccount.model.transaction.ServerResponseTransactions;
-import it.innotek.demo.bankaccount.model.transaction.Transaction;
-import it.innotek.demo.bankaccount.model.transaction.TransactionHistory;
-import it.innotek.demo.bankaccount.model.transaction.TransactionPayload;
-
-
-@Component
-public class BankAccountMapperImpl implements BankAccountMapper  {
+//@Component
+public class Bank2222AccountMapperImpl {} /* implements BankAccountMapper  {
 
 	public <S extends ServerResponse<T>, R extends ServerResponse<T>,T> R  cloneTO(S source, Supplier<R> supplier) {
 		
@@ -65,4 +49,4 @@ public class BankAccountMapperImpl implements BankAccountMapper  {
 		return result;
 	}
 
-}
+}*/

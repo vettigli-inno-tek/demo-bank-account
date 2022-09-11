@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
-public class BankAccountConfigurator {
+public class BankAccountConfiguration {
 	
 	
 	
@@ -19,7 +19,7 @@ public class BankAccountConfigurator {
 		
 		
 		ObjectMapper objectMapper = new ObjectMapper(); 
-        //objectMapper.findAndRegisterModules();
+       
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.registerModule(new JavaTimeModule());
         
@@ -27,24 +27,5 @@ public class BankAccountConfigurator {
         
         return objectMapper;
     }
-	/*
-	@Bean
-	public Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder(Jackson2ObjectMapperBuilder mapperbuilder ,Jackson2ObjectMapperBuilderCustomizer customizer) {
-		
-		
-	    return mapperbuilder;
-	}
-	
-	
-	@Bean
-	public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
-	    return builder -> {
-	    	builder.failOnUnknownProperties(false)
-	    	.findModulesViaServiceLoader(true)
-	    	;
-	    };
-	      
-	}
-	*/
 	
 }

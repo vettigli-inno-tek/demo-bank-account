@@ -4,7 +4,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.time.LocalDate;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,7 +21,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import it.innotek.demo.bankaccount.mappers.BankAccountMapper;
-import it.innotek.demo.bankaccount.mappers.impl.BankAccountMapperImpl;
+//import it.innotek.demo.bankaccount.mappers.impl.BankAccountMapperImpl;
 import it.innotek.demo.bankaccount.model.balance.Balance;
 import it.innotek.demo.bankaccount.model.balance.ServerResponseBalance;
 import it.innotek.demo.bankaccount.model.banktransfer.BankTransfer;
@@ -130,18 +127,15 @@ public class BankAccountRestController {
 		})
 		
 		public ResponseEntity<ServerResponseBankTransferResult> moneyTransfer(
-				@Parameter(description = "The id of the account", example = "1234") @PathVariable final int accountId,
-				@Parameter(description = "The time zone used to provide the request date fields", example = "Europe/Rome") @RequestHeader("X-Time-Zone") String timeZone,
-				@Parameter(description = "The data to make a money transfer", required = true, schema = @Schema(implementation = BankTransfer.class))  BankTransfer moneyTransfer
-				 
+				@Parameter(description = "The id of the account", example = "1234") 
+				@PathVariable final int accountId,
+				@Parameter(description = "The time zone used to provide the request date fields", example = "Europe/Rome") 
+				@RequestHeader("X-Time-Zone") String timeZone,
+				@Parameter(description = "The data to make a money transfer", required = true, schema = @Schema(implementation = BankTransfer.class))  
+				@RequestBody BankTransfer moneyTransfer
 		) {
 			
-			
-			
-			
-			
 			ServerResponse<BankTransferResult> resultService  =  this.service.moneyTransfers(accountId,timeZone, moneyTransfer);	
-
 			
 			ServerResponseBankTransferResult result = mapper.toResponseBankTransfer(resultService);
 			return ResponseEntity

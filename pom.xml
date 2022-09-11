@@ -3,8 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 
 
-	
-
 	<groupId>it.inno-tek.demo.bank-account</groupId>
 	<artifactId>bank-account</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -14,9 +12,9 @@
 	<description>Demo Bank Account</description>
 
 	<properties>
-		
+
 		<java.version>1.8</java.version>
-		
+
 		<resource.delimiter>@</resource.delimiter>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
@@ -27,7 +25,7 @@
 		<retrofit.version>2.9.0</retrofit.version>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 		<springdoc.version>1.6.4</springdoc.version>
-
+		<junit-jupiter.version>5.8.2</junit-jupiter.version>
 	</properties>
 
 	<dependencyManagement>
@@ -44,8 +42,8 @@
 				<groupId>com.squareup.retrofit2</groupId>
 				<artifactId>retrofit</artifactId>
 				<version>${retrofit.version}</version>
-			</dependency>  
-			<dependency>  
+			</dependency>
+			<dependency>
 				<groupId>com.squareup.retrofit2</groupId>
 				<artifactId>converter-jackson</artifactId>
 				<version>${retrofit.version}</version>
@@ -60,7 +58,7 @@
 				<artifactId>springdoc-openapi-ui</artifactId>
 				<version>${springdoc.version}</version>
 			</dependency>
-			
+
 
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
@@ -74,20 +72,67 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-engine</artifactId>
-				<version>5.8.2</version>
-				<scope>test</scope>
-			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.5.1</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+								<version>${mapstruct.version}</version>
+							</path>
+						</annotationProcessorPaths>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.0.0-M7</version>
+
+					<configuration>
+						<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<!--	<reportsDirectory>${project.build.directory}/test-otuputs</reportsDirectory> -->
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.junit.jupiter</groupId>
+							<artifactId>junit-jupiter-engine</artifactId>
+							<version>${junit-jupiter.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.9.1.2184</version>
+				</plugin>
+				<plugin>
+				  <groupId>org.jacoco</groupId>
+				  <artifactId>jacoco-maven-plugin</artifactId>
+				  <version>0.8.6</version>
+				</plugin>
+
+
+			</plugins>
+
+		</pluginManagement>
+
+	</build>
 	<modules>
 		<module>bank-account-domain</module>
 		<module>bank-account-provider-default</module>
 		<module>bank-account-application</module>
 	</modules>
-
 
 </project>

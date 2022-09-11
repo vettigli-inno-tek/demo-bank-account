@@ -2,6 +2,8 @@ package it.innotek.demo.bankaccount.handlers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,13 +15,20 @@ import it.innotek.demo.bankaccount.model.server.ServerErrorResponse;
 import it.innotek.demo.bankaccount.model.server.ServerResponseError;
 
 @ControllerAdvice
-public class ApplicationExceptionHandler {
+public class BankAccountApplicationExceptionHandler {
+	
+	
 	
 	
 	@ExceptionHandler
-	public ResponseEntity<ServerResponseError> handleError(BankAccountProviderException e) {
+	public ResponseEntity<ServerResponseError> handleError(BankAccountProviderException e, HttpServletRequest request) {
+		
+	   
+	    
+		Object objRequestID =  request.getAttribute(BankAccountRequestIDInterceptor.RequestIDAttributeName);
 		
 		ServerResponseError response = new ServerResponseError() ;
+		response.setRequestID(String.valueOf(objRequestID));
 		response.setDescritption(e.getMessage());
 		response.getErrors().addAll(e.getErrors());
 		

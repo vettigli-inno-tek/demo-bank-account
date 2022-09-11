@@ -12,7 +12,7 @@ import it.innotek.demo.bankaccount.model.transaction.Transaction;
 import it.innotek.demo.bankaccount.model.transaction.TransactionHistory;
 import it.innotek.demo.bankaccount.model.transaction.TransactionPayload;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BankAccountMapper {
 	ServerResponseBalance       toResponseBalance(ServerResponse<Balance> sourceResponse);
 	ServerResponseTransactions  toResponseTransactions(ServerResponse<TransactionPayload> sourceResponse);

@@ -1,12 +1,11 @@
 package it.innotek.demo.bankaccount;
 
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 
-import org.assertj.core.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +25,7 @@ public class BankAccountApplicationTest {
  
   @DisplayName("Context Loads")
   @Test
-  public void contextLoads() {
-    Assertions.assertThat(bankAccountRestController).isNot(null);
+  public void whenRun_thenLoadContext() {
+	  assertNotNull(bankAccountRestController);
   }
 }

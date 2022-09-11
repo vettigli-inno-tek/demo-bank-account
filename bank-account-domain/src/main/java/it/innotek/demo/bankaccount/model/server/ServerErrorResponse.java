@@ -6,6 +6,27 @@ public class ServerErrorResponse {
 	private String params;
 	private String details;
 
+	
+	public ServerErrorResponse() {
+		
+	}
+	public ServerErrorResponse(String code, String description) {
+		super();
+		this.code = code;
+		this.description = description;
+	
+	}
+	
+	
+	public ServerErrorResponse(String code, String description, String params, String details) {
+		super();
+		this.code = code;
+		this.description = description;
+		this.params = params;
+		this.details = details;
+	}
+
+
 	public String getCode() {
 		return code;
 	}

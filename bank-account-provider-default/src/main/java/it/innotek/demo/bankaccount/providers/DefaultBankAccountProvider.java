@@ -1,45 +1,81 @@
 package it.innotek.demo.bankaccount.providers;
 
+
 import java.time.LocalDate;
-import java.util.function.Supplier;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import it.innotek.demo.bankaccount.enumeration.ServerResponseStatus;
-import it.innotek.demo.bankaccount.excpetion.BankAccountProviderException;
 import it.innotek.demo.bankaccount.model.balance.Balance;
-import it.innotek.demo.bankaccount.model.balance.ServerResponseBalance;
 import it.innotek.demo.bankaccount.model.banktransfer.BankTransfer;
 import it.innotek.demo.bankaccount.model.banktransfer.BankTransferResult;
-import it.innotek.demo.bankaccount.model.banktransfer.ServerResponseBankTransferResult;
-import it.innotek.demo.bankaccount.model.server.ServerErrorResponse;
 import it.innotek.demo.bankaccount.model.server.ServerResponse;
-import it.innotek.demo.bankaccount.model.server.ServerResponseObject;
-import it.innotek.demo.bankaccount.model.transaction.ServerResponseTransactions;
 import it.innotek.demo.bankaccount.model.transaction.TransactionPayload;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
+
 
 @Component
 public class DefaultBankAccountProvider implements BankAccountProvider {
 
 	
-	private final static Logger logger = LoggerFactory.getLogger(DefaultBankAccountProvider.class);
 	
+
+	private final DefaultBankAccountProviderClient client;
+	
+	
+	
+	
+	public DefaultBankAccountProvider(DefaultBankAccountProviderClient client ) {
+		this.client = client;
+	}
+
+	
+	
+       
+	
+	@Override
+	public Balance getBalance(int accountId) {
+		ServerResponse<Balance> response = client.getBalance(accountId);
+		return response.getPayload();
+	}
+
+	@Override
+	public TransactionPayload getTransactions(int accountId, LocalDate from, LocalDate to) {
+		ServerResponse<TransactionPayload> response = client.getTransactions(accountId,from,to);
+		return response.getPayload();
+	}
+
+	@Override
+	public BankTransferResult moneyTransfers(int accountId, String timeZone, BankTransfer transfer) {
+		
+		ServerResponse<BankTransferResult> response = client.moneyTransfers(accountId,timeZone,transfer);
+		return response.getPayload();
+	}
+	
+	
+	/*
 	private DefaultBankAccountProviderService service;
-	private ObjectMapper objectMapper ;
+	private ObjectMapper objectMapper;
+	private final DefaultBankAccountProviderServiceFactory serviceFactory;
+	
+	
+	private DefaultBankAccountProviderService getService() {
+		if ( service == null) {
+			service = serviceFactory.getService();
+		}
+		return service ; 
+		
+	}
+	
+	private ObjectMapper getObjectMapper() {
+		if ( objectMapper == null) {
+			objectMapper = serviceFactory.getObjectMapper();
+		}
+		return objectMapper ; 
+		
+	}
 	@Autowired
 	public DefaultBankAccountProvider(DefaultBankAccountProviderServiceFactory serviceFactory) {
-		this.service = serviceFactory.getService();
-		this.objectMapper = serviceFactory.getObjectMapper();
+		this.serviceFactory = serviceFactory;
+
 	}
 
 	private <T extends ServerResponse<?>>  T execute(Supplier<Call<T>> supplier, Supplier<String> messageSupplier ) {
@@ -69,7 +105,7 @@ public class DefaultBankAccountProvider implements BankAccountProvider {
 				if ( StringUtils.hasText(errorBodyText))
 				{
 					try {
-						ServerResponseObject responseError = objectMapper.readValue(errorBodyText, ServerResponseObject.class) ;
+						ServerResponseObject responseError = getObjectMapper().readValue(errorBodyText, ServerResponseObject.class) ;
 						exception.getErrors().addAll(responseError.getErrors());
 					} catch (JsonProcessingException e) {
 						logger.warn("Unable to parse errorBody on " + messageOperation);
@@ -104,7 +140,7 @@ public class DefaultBankAccountProvider implements BankAccountProvider {
 	public Balance getBalance(int accountID) {
 		
 		ServerResponseBalance result = execute( () -> {
-				return service.getBalance(accountID);
+				return getService().getBalance(accountID);
 			}, 
 			() -> String.format("retrieving balance for given account %s", accountID)
 		); 
@@ -116,7 +152,7 @@ public class DefaultBankAccountProvider implements BankAccountProvider {
 	public TransactionPayload getTransactions(int accountID, LocalDate from, LocalDate to) {
 		
 		ServerResponseTransactions result = execute( () -> {
-			return service.getTransactions(accountID, from, to);
+			return getService().getTransactions(accountID, from, to);
 			}, 
 		    () -> String.format("retrieving transactions for given account %s", accountID)
 		);
@@ -131,11 +167,11 @@ public class DefaultBankAccountProvider implements BankAccountProvider {
 		ServerResponseBankTransferResult result = execute( () -> {
 			
 			
-			return  service.moneyTransfers(accountID, timeZone, transfer);
+			return  getService().moneyTransfers(accountID, timeZone, transfer);
 			}, 
 			() -> String.format("make moneyTransfers for given account %s", accountID)
 		);
 		return result.getPayload();
 	}
-
+*/
 }
